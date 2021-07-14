@@ -15,7 +15,8 @@ fi
 ​
 json="{\"text\": \"$content\"}"
 echo "content : " $content
-
-slack_webhook_url="https://hooks.slack.com/..."
+​
+# get yours on:	https://lunit.slack.com/apps/A0F7XDUAZ-incoming-webhooks
+slack_webhook_url="https://hooks.slack.com/change/me"
 curl -X POST -H 'Content-type: application/json' --data "$json" $slack_webhook_url
-
+echo ""
