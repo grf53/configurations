@@ -1,13 +1,18 @@
 #!/bin/bash
 
 if [ $# -ge 1 ]; then
-  content=$@
+  content=$@      # input as system arguments
 elif [ -t 0 ]; then
-  exit 1        # stdin coming from keyboard
+  echo -ne "> "
+  read content;   # stdin coming from keyboard
 else
   content=$(tee)  # stdin coming from a pipe or a file
 fi
-
+​
+if [ -z "$content" ]; then
+  exit 1
+fi
+​
 json="{\"text\": \"$content\"}"
 echo "content : " $content
 
