@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ $# -ge 1 ]; then
+  content=$@
+elif [ -t 0 ]; then
+  exit 1        # stdin coming from keyboard
+else
+  content=$(tee)  # stdin coming from a pipe or a file
+fi
+
+json="{\"text\": \"$content\"}"
+echo "content : " $content
+
+slack_webhook_url="https://hooks.slack.com/..."
+curl -X POST -H 'Content-type: application/json' --data "$json" $slack_webhook_url
+
