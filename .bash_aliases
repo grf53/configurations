@@ -9,7 +9,9 @@ alias dockviz='docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock 
 
 docker_rmi(){
   if [ $1 == "rmi" ] && [ $# -eq 2 ]; then
-    docker rmi $(docker images --filter=reference=$2 --format "{{.Repository}}:{{.Tag}}" | sort -u)
+    if ! docker $* ; then
+      docker rmi $(docker images --filter=reference=$2 --format "{{.Repository}}:{{.Tag}}" | sort -u)
+    fi
   else
     docker $*
   fi
